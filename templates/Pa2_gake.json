@@ -1,0 +1,325 @@
+{
+  "type": 2,
+  "selections": [
+    {
+      "starts": [
+        {
+          "tileset_slot": 2,
+          "object_num": 25,
+          "width": 1,
+          "height": 3,
+          "layer": 2,
+          "fixed_size": true
+        }
+      ],
+      "ends": [
+        {
+          "tileset_slot": 2,
+          "object_num": 30,
+          "width": 1,
+          "height": 3,
+          "layer": 2,
+          "fixed_size": true
+        }
+      ],
+      "objects": [
+        {
+          "tileset_slot": 2,
+          "object_num": 0,
+          "width": 4,
+          "height": 3,
+          "layer": 2,
+          "fixed_size": true
+        },
+        {
+          "tileset_slot": 2,
+          "object_num": 1,
+          "width": 4,
+          "height": 3,
+          "layer": 2,
+          "fixed_size": true
+        },
+        {
+          "tileset_slot": 2,
+          "object_num": 2,
+          "width": 3,
+          "height": 3,
+          "layer": 2,
+          "fixed_size": true
+        },
+        {
+          "tileset_slot": 2,
+          "object_num": 3,
+          "width": 2,
+          "height": 3,
+          "layer": 2,
+          "fixed_size": true
+        },
+        {
+          "tileset_slot": 2,
+          "object_num": 4,
+          "width": 1,
+          "height": 3,
+          "layer": 2,
+          "fixed_size": true
+        }
+      ]
+    },
+    {
+      "starts": [
+        {
+          "tileset_slot": 2,
+          "object_num": 26,
+          "width": 1,
+          "height": 2,
+          "layer": 2,
+          "fixed_size": true
+        }
+      ],
+      "ends": [
+        {
+          "tileset_slot": 2,
+          "object_num": 31,
+          "width": 1,
+          "height": 2,
+          "layer": 2,
+          "fixed_size": true
+        }
+      ],
+      "objects": [
+        {
+          "tileset_slot": 2,
+          "object_num": 5,
+          "width": 4,
+          "height": 2,
+          "layer": 2,
+          "fixed_size": true
+        },
+        {
+          "tileset_slot": 2,
+          "object_num": 6,
+          "width": 4,
+          "height": 2,
+          "layer": 2,
+          "fixed_size": true
+        },
+        {
+          "tileset_slot": 2,
+          "object_num": 7,
+          "width": 3,
+          "height": 2,
+          "layer": 2,
+          "fixed_size": true
+        },
+        {
+          "tileset_slot": 2,
+          "object_num": 8,
+          "width": 2,
+          "height": 2,
+          "layer": 2,
+          "fixed_size": true
+        },
+        {
+          "tileset_slot": 2,
+          "object_num": 9,
+          "width": 1,
+          "height": 2,
+          "layer": 2,
+          "fixed_size": true
+        }
+      ]
+    },
+    {
+      "starts": [
+        {
+          "tileset_slot": 2,
+          "object_num": 27,
+          "width": 1,
+          "height": 3,
+          "layer": 2,
+          "fixed_size": true
+        }
+      ],
+      "ends": [
+        {
+          "tileset_slot": 2,
+          "object_num": 32,
+          "width": 1,
+          "height": 3,
+          "layer": 2,
+          "fixed_size": true
+        }
+      ],
+      "objects": [
+        {
+          "tileset_slot": 2,
+          "object_num": 10,
+          "width": 4,
+          "height": 3,
+          "layer": 2,
+          "fixed_size": true
+        },
+        {
+          "tileset_slot": 2,
+          "object_num": 11,
+          "width": 4,
+          "height": 3,
+          "layer": 2,
+          "fixed_size": true
+        },
+        {
+          "tileset_slot": 2,
+          "object_num": 12,
+          "width": 3,
+          "height": 3,
+          "layer": 2,
+          "fixed_size": true
+        },
+        {
+          "tileset_slot": 2,
+          "object_num": 13,
+          "width": 2,
+          "height": 3,
+          "layer": 2,
+          "fixed_size": true
+        },
+        {
+          "tileset_slot": 2,
+          "object_num": 14,
+          "width": 1,
+          "height": 3,
+          "layer": 2,
+          "fixed_size": true
+        }
+      ]
+    },
+    {
+      "starts": [
+        {
+          "tileset_slot": 2,
+          "object_num": 28,
+          "width": 1,
+          "height": 3,
+          "layer": 2,
+          "fixed_size": true
+        }
+      ],
+      "ends": [
+        {
+          "tileset_slot": 2,
+          "object_num": 33,
+          "width": 1,
+          "height": 3,
+          "layer": 2,
+          "fixed_size": true
+        }
+      ],
+      "objects": [
+        {
+          "tileset_slot": 2,
+          "object_num": 15,
+          "width": 4,
+          "height": 3,
+          "layer": 2,
+          "fixed_size": true
+        },
+        {
+          "tileset_slot": 2,
+          "object_num": 16,
+          "width": 4,
+          "height": 3,
+          "layer": 2,
+          "fixed_size": true
+        },
+        {
+          "tileset_slot": 2,
+          "object_num": 17,
+          "width": 3,
+          "height": 3,
+          "layer": 2,
+          "fixed_size": true
+        },
+        {
+          "tileset_slot": 2,
+          "object_num": 18,
+          "width": 2,
+          "height": 3,
+          "layer": 2,
+          "fixed_size": true
+        },
+        {
+          "tileset_slot": 2,
+          "object_num": 19,
+          "width": 1,
+          "height": 3,
+          "layer": 2,
+          "fixed_size": true
+        }
+      ]
+    },
+    {
+      "starts": [
+        {
+          "tileset_slot": 2,
+          "object_num": 29,
+          "width": 1,
+          "height": 2,
+          "layer": 2,
+          "fixed_size": true
+        }
+      ],
+      "ends": [
+        {
+          "tileset_slot": 2,
+          "object_num": 34,
+          "width": 1,
+          "height": 2,
+          "layer": 2,
+          "fixed_size": true
+        }
+      ],
+      "objects": [
+        {
+          "tileset_slot": 2,
+          "object_num": 20,
+          "width": 4,
+          "height": 2,
+          "layer": 2,
+          "fixed_size": true
+        },
+        {
+          "tileset_slot": 2,
+          "object_num": 21,
+          "width": 4,
+          "height": 2,
+          "layer": 2,
+          "fixed_size": true
+        },
+        {
+          "tileset_slot": 2,
+          "object_num": 22,
+          "width": 3,
+          "height": 2,
+          "layer": 2,
+          "fixed_size": true
+        },
+        {
+          "tileset_slot": 2,
+          "object_num": 23,
+          "width": 2,
+          "height": 2,
+          "layer": 2,
+          "fixed_size": true
+        },
+        {
+          "tileset_slot": 2,
+          "object_num": 24,
+          "width": 1,
+          "height": 2,
+          "layer": 2,
+          "fixed_size": true
+        }
+      ]
+    }
+  ]
+}
