@@ -184,9 +184,9 @@ def validate(width: int, add_edges: bool) -> str | None:
     if globals_.template.type == RandomizationType.RANDOM:
         if not len(get_merged_object_list()):
             return "No objects available"
-        if not any(selection.starts for selection in globals_.template.selections):
+        if add_edges and not any(selection.starts for selection in globals_.template.selections):
             return "One or more selections have no starting objects"
-        if not any(selection.ends for selection in globals_.template.selections):
+        if add_edges and not any(selection.ends for selection in globals_.template.selections):
             return "One or more selections have no ending objects"
     else:
         for selection in globals_.template.selections:
@@ -202,6 +202,7 @@ def validate(width: int, add_edges: bool) -> str | None:
     for selection in globals_.template.selections:
         if selection.get_min_width() > width:
             return "One or more selections have insufficient object widths"
+
 
 def get_highest_width(object_list: list[ReggieObject] | None) -> int:
     return max([obj.width for obj in object_list]) if object_list else 0
