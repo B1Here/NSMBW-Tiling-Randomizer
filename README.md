@@ -1,6 +1,8 @@
 # NSMBW Tiling Randomizer
 
-A silly little tool to help with tiling randomized sets of objects.
+[![Latest Release][release-version-image]][releases-url] ![Repo Stars][stars-image]
+
+A silly little Python tool to help with creating random object patterns for NSMBW levels.
 
 ## Requirements
 
@@ -17,4 +19,8 @@ To define your own template use the designated "Template" tab. Make sure to have
 
 ## Bug Reports
 
-Any issues reports or suggestions can be made [here](https://github.com/B1Here/NSMBW-Tiling-Randomizer).
+Any issue reports or suggestions can be made [here](https://github.com/B1Here/NSMBW-Tiling-Randomizer/issues).
+
+[release-version-image]: https://img.shields.io/github/v/release/B1Here/NSMBW-Tiling-Randomizer?logo=github&logoColor=white
+[releases-url]: https://github.com/B1Here/NSMBW-Tiling-Randomizer/releases
+[stars-image]: https://img.shields.io/github/stars/B1Here/NSMBW-Tiling-Randomizer?style=flat&logo=github&color=yellow
