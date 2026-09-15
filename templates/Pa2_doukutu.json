@@ -2,8 +2,26 @@
   "type": 0,
   "selections": [
     {
-      "starts": [],
-      "ends": [],
+      "starts": [
+        {
+          "tileset_slot": 2,
+          "object_num": 3,
+          "width": 1,
+          "height": 1,
+          "layer": 2,
+          "fixed_size": false
+        }
+      ],
+      "ends": [
+        {
+          "tileset_slot": 2,
+          "object_num": 4,
+          "width": 1,
+          "height": 1,
+          "layer": 2,
+          "fixed_size": false
+        }
+      ],
       "objects": [
         {
           "tileset_slot": 2,
@@ -12,13 +30,7 @@
           "height": 1,
           "layer": 2,
           "fixed_size": false
-        }
-      ]
-    },
-    {
-      "starts": [],
-      "ends": [],
-      "objects": [
+        },
         {
           "tileset_slot": 2,
           "object_num": 21,
@@ -82,13 +94,7 @@
           "height": 2,
           "layer": 2,
           "fixed_size": true
-        }
-      ]
-    },
-    {
-      "starts": [],
-      "ends": [],
-      "objects": [
+        },
         {
           "tileset_slot": 2,
           "object_num": 13,

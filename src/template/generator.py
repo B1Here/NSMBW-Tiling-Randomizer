@@ -13,14 +13,206 @@ def get_merged_object_list() -> list[ReggieObject]:
     ]
 
 
-def generate_random(
-    width: int, y: int, add_edges: bool = False
-) -> list[ReggieObject] | str:
-    objects = get_merged_object_list()
+def merge_selections(selections: list[Selection]) -> Selection:
+    result = Selection([])
+    for selection in selections:
+        result.objects.extend(selection.objects)
+        result.starts.extend(selection.starts)
+        result.ends.extend(selection.ends)
 
-    _fixed_objects = [obj for obj in objects if obj.fixed_size]
-    _resizable_objects = [obj for obj in objects if not obj.fixed_size]
-    return "Not implemented yet..."
+    return result
+
+
+def validate_coverage(obj: ReggieObject, x: int, y: int, map: list[list[bool]]) -> bool:
+    x_max = x + obj.width
+    y_max = y + obj.height
+
+    if x_max > len(map[0]) or y_max > len(map):
+        return False
+
+    for i in range(y, y_max):
+        for j in range(x, x_max):
+            if map[i][j]:
+                return False
+
+    return True
+
+
+def validate_near_presence(
+    objects: list[ReggieObject], obj: ReggieObject, x: int, y: int
+) -> bool:
+    if len(objects) == 0:
+        return False
+    x_range = range(x - obj.width - 1, x + obj.width * 2 + 1)
+    y_range = range(y - obj.height - 1, y + obj.height * 2 + 1)
+
+    for o in objects:
+        if o.object_num == obj.object_num and o.x in x_range and o.y in y_range:
+            return True
+    return False
+
+
+def update_coverage(obj: ReggieObject, x: int, y: int, map: list[list[bool]]) -> None:
+    x_max = x + obj.width
+    y_max = y + obj.height
+    for i in range(y, y_max):
+        for j in range(x, x_max):
+            map[i][j] = True
+
+
+def fill_empty(
+    objects: list[ReggieObject], one: ReggieObject, map: list[list[bool]]
+) -> None:
+    obj: ReggieObject | None = None
+    vertical_stretch = True
+    for i in range(len(map[0])):
+        horizontal_stretch = True
+        for j in range(len(map)):
+            if map[j][i] or j == len(map) and i + 1 < len(map[0]) and map[j][i + 1]:
+                if obj is not None:
+                    objects.append(obj)
+                    obj = None
+                    vertical_stretch = True
+                    horizontal_stretch = True
+                continue
+            if obj is None:
+                obj = copy.copy(one)
+                obj.x = i
+                obj.y = j
+
+            if vertical_stretch and j + 1 < len(map) and not map[j + 1][i]:
+                j_initial = j
+                while j + 1 < len(map) and not map[j + 1][i]:
+                    obj.height += 1
+                    j += 1
+                    map[j][i] = True
+                vertical_stretch = False
+                horizontal_stretch = False
+                j = j_initial
+
+            if horizontal_stretch and i + 1 < len(map[0]) and not map[j][i + 1]:
+                i_initial = i
+                while (
+                    i + 1 < len(map[0])
+                    and not map[j][i + 1]
+                    and (j == len(map) - 1 or (j + 1 < len(map) and map[j + 1][i + 1]))
+                    and (j == 0 or (j - 1 >= 0 and map[j - 1][i + 1]))
+                ):
+                    obj.width += 1
+                    i += 1
+                    map[j][i] = True
+                horizontal_stretch = False
+                i = i_initial
+            map[j][i] = True
+        if obj is not None:
+            objects.append(obj)
+            obj = None
+
+
+def generate_random(
+    width: int, height: int, add_edges: bool = False
+) -> list[ReggieObject] | str:
+    object_list: list[ReggieObject] = []
+    selection = merge_selections(globals_.template.selections)
+    if not add_edges:
+        selection.starts.clear()
+        selection.ends.clear()
+
+    singles = [object for object in selection.objects if not object.fixed_size]
+    one_by_one: ReggieObject | None = None
+    if singles:
+        one_by_one = singles[0]
+        selection.objects.remove(one_by_one)
+    else:
+        print("[Warning] - No filler found. Empty spaces will not be filled")
+
+    map: list[list[bool]] = [[] for _ in range(height)]
+    for row in map:
+        row.extend([False] * width)
+
+    x = 0
+    if selection.starts and selection.ends:
+        x += selection.starts[0].width
+        for row in map:
+            for index, _item in enumerate(row):
+                if index == 0 or index == width - 1:
+                    row[index] = True
+        width -= selection.ends[0].width
+    y = 0
+    attempts = 0
+    prev_index = -1
+    initial_variance = True
+    height_var = False
+    width_var = False
+    while y < height:
+        if all(entry for entry in map[y]):
+            y += 1
+            continue
+        if selection.starts:
+            x = selection.starts[0].x
+        else:
+            x = 0
+        while x < width:
+            index = -1
+            while index == -1 or index == prev_index:
+                index = random.randint(0, len(selection.objects) - 1)
+
+            if attempts > 10:
+                attempts = 0
+                initial_variance = True
+                x += 1
+                continue
+            obj = copy.copy(selection.objects[index])
+            if initial_variance:
+                initial_variance = False
+                height_var = y + obj.height < height and random.random() > 0.75
+                width_var = x + obj.width < width and random.random() > 0.75
+            attempts += 1
+            if x + obj.width > width or y + obj.height > height:
+                continue
+            if not validate_coverage(obj, x + int(width_var), y + int(height_var), map):
+                if not validate_coverage(obj, x, y, map):
+                    continue
+                height_var = False
+                width_var = False
+            if obj.width + obj.height <= len(
+                selection.objects
+            ) and validate_near_presence(object_list, obj, x, y):
+                continue
+
+            if height_var:
+                y += 1
+            if width_var:
+                x += 1
+            update_coverage(obj, x, y, map)
+
+            obj.x = x
+            obj.y = y
+            x += obj.width
+            prev_index = index
+            attempts = 0
+            object_list.append(obj)
+            if height_var:
+                y -= 1
+            if width_var:
+                x -= 1
+
+            height_var = y + obj.height < height and random.random() > 0.75
+            width_var = x + obj.width < width and random.random() > 0.75
+        y += 1
+    if one_by_one:
+        fill_empty(object_list, one_by_one, map)
+
+    if selection.starts and selection.ends:
+        start = selection.starts[0]
+        end = selection.ends[0]
+        start.height = height
+        end.height = height
+        end.x = width
+        object_list.insert(0, start)
+        object_list.append(end)
+
+    return object_list
 
 
 def generate_row(
@@ -184,9 +376,13 @@ def validate(width: int, add_edges: bool) -> str | None:
     if globals_.template.type == RandomizationType.RANDOM:
         if not len(get_merged_object_list()):
             return "No objects available"
-        if add_edges and not any(selection.starts for selection in globals_.template.selections):
+        if add_edges and not any(
+            selection.starts for selection in globals_.template.selections
+        ):
             return "One or more selections have no starting objects"
-        if add_edges and not any(selection.ends for selection in globals_.template.selections):
+        if add_edges and not any(
+            selection.ends for selection in globals_.template.selections
+        ):
             return "One or more selections have no ending objects"
     else:
         for selection in globals_.template.selections:
