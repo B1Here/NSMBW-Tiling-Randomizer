@@ -8,7 +8,7 @@ class ReggieObject:
         layer: int,
         *,
         resizable: bool = False,
-    ):
+    ) -> None:
         self.tileset_slot = tileset_slot
         self.object_num = object_num
         self.layer = layer
@@ -18,7 +18,7 @@ class ReggieObject:
         self.height = height
         self.resizable = resizable
 
-    def data(self):
+    def data(self) -> tuple[int, int, int, int, int, int, int]:
         return (
             self.tileset_slot,
             self.object_num,

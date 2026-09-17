@@ -9,10 +9,10 @@ class ReggieClip:
     _delimiter = "|"
     _end = "%"
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.items: list[str] = [self._start]
 
-    def write(self, objects: list[ReggieObject]):
+    def write(self, objects: list[ReggieObject]) -> str:
         for object in objects:
             self.items.append(self._object_structure % object.data())
         self.items.append(self._end)

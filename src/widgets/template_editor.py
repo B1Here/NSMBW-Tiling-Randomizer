@@ -10,13 +10,13 @@ from widgets.template_config import TemplateConfigWidget
 class TemplateEditorWidget(QtWidgets.QWidget, GenericWidget):
     list_updated = QtCore.pyqtSignal(str)
 
-    def __init__(self, parent=None):
+    def __init__(self, parent: QtWidgets.QWidget | None = None) -> None:
         super().__init__(parent)
 
         self._init_widgets()
         self._setup_layout()
 
-    def _init_widgets(self):
+    def _init_widgets(self) -> None:
         self.selection_list = QtWidgets.QListWidget(self)
         self.selection_list.currentRowChanged.connect(self._on_selection_changed)
         self.template_config = TemplateConfigWidget(self)
@@ -28,7 +28,7 @@ class TemplateEditorWidget(QtWidgets.QWidget, GenericWidget):
         self.object_editor = ObjectEditor()
         self.update_selection_list()
 
-    def _setup_layout(self):
+    def _setup_layout(self) -> None:
         layout = QtWidgets.QGridLayout(self)
         layout.setColumnStretch(2, 1)
         layout.addWidget(self.template_config, 0, 0, 1, 3)
@@ -38,32 +38,32 @@ class TemplateEditorWidget(QtWidgets.QWidget, GenericWidget):
         layout.addWidget(self.object_editor, 1, 2, 2, 1)
         self.setLayout(layout)
 
-    def reload(self):
+    def reload(self) -> None:
         self.update_selection_list()
         self.template_config.reload()
         self.object_editor.reload()
         self._reload_buttons()
 
-    def update_selection_list(self):
+    def update_selection_list(self) -> None:
         self.selection_list.clear()
         self.selection_list.addItems(
             f"Selection {i + 1}" for i in range(len(globals_.template.selections))
         )
         self.update_index()
 
-    def update_index(self):
+    def update_index(self) -> None:
         if globals_.current_selection_index == -1 and len(globals_.template.selections):
             self.selection_list.setCurrentRow(0)
             globals_.current_selection_index = 0
 
-    def _on_selection_changed(self, index: int):
+    def _on_selection_changed(self, index: int) -> None:
         index = min(index, len(globals_.template.selections) - 1)
         globals_.current_selection_index = index
 
         if index >= 0:
             self.object_editor.reload()
 
-    def _add_selection(self):
+    def _add_selection(self) -> None:
         globals_.template.selections.append(Selection([]))
         self.selection_list.addItem(f"Selection {len(globals_.template.selections)}")
         self.update_index()
@@ -71,7 +71,7 @@ class TemplateEditorWidget(QtWidgets.QWidget, GenericWidget):
         self.object_editor.reload()
         self._reload_buttons()
 
-    def _remove_selection(self):
+    def _remove_selection(self) -> None:
         if len(globals_.template.selections) <= 0:
             return
 
@@ -86,5 +86,5 @@ class TemplateEditorWidget(QtWidgets.QWidget, GenericWidget):
         self.object_editor.reload()
         self._reload_buttons()
 
-    def _reload_buttons(self):
+    def _reload_buttons(self) -> None:
         self.remove_selection_button.setEnabled(len(globals_.template.selections) > 0)

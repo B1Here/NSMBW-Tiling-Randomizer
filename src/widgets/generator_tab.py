@@ -9,14 +9,14 @@ from widgets.reloadable import GenericWidget
 
 
 class GeneratorTabWidget(QtWidgets.QWidget, GenericWidget):
-    def __init__(self, parent=None):
+    def __init__(self, parent: QtWidgets.QWidget | None = None) -> None:
         super().__init__(parent)
 
         self._init_widgets()
         self._setup_layout()
         self._update_offset_spin_box()
 
-    def _init_widgets(self):
+    def _init_widgets(self) -> None:
         # labels
         self.width_label = QtWidgets.QLabel("Filler Width", self)
         self.width_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignRight)
@@ -44,7 +44,7 @@ class GeneratorTabWidget(QtWidgets.QWidget, GenericWidget):
         self.reggie_clip_text_area = QtWidgets.QTextEdit(self)
         self.reggie_clip_text_area.setReadOnly(True)
 
-    def _setup_layout(self):
+    def _setup_layout(self) -> None:
         layout = QtWidgets.QGridLayout()
         self.setLayout(layout)
         layout.setColumnStretch(3, 1)
@@ -63,11 +63,11 @@ class GeneratorTabWidget(QtWidgets.QWidget, GenericWidget):
         layout.addWidget(self.reggie_clip_label, 5, 0)
         layout.addWidget(self.reggie_clip_text_area, 6, 0, 1, 4)
 
-    def reload(self):
+    def reload(self) -> None:
         self._update_offset_check_box()
         self._update_offset_spin_box(True)
 
-    def _update_offset_check_box(self):
+    def _update_offset_check_box(self) -> None:
         self.random_offset_check_box.setDisabled(len(globals_.template.selections) <= 1)
 
     def _update_offset_spin_box(self, update_range: bool | int = False) -> None:
@@ -81,7 +81,7 @@ class GeneratorTabWidget(QtWidgets.QWidget, GenericWidget):
                 len(globals_.template.selections),
             )
 
-    def validate(self):
+    def validate(self) -> bool:
         if not self.validate_width() or not self.validate_height():
             return False
         result = generator.validate(
@@ -92,7 +92,7 @@ class GeneratorTabWidget(QtWidgets.QWidget, GenericWidget):
             return False
         return True
 
-    def validate_width(self):
+    def validate_width(self) -> bool:
         if self.width_spin_box.value() % 1 != 0:
             return all(
                 object.width % 1 != 0
@@ -101,7 +101,7 @@ class GeneratorTabWidget(QtWidgets.QWidget, GenericWidget):
             )
         return True
 
-    def validate_height(self):
+    def validate_height(self) -> bool:
         if self.height_spin_box.value() % 1 != 0:
             return all(
                 object.height % 1 != 0

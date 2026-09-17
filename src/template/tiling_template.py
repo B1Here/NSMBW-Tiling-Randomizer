@@ -12,14 +12,14 @@ class TilingTemplate:
         type: RandomizationType,
         selections: list[Selection],
         file_name: str | None = None,
-    ):
+    ) -> None:
         self.type: RandomizationType = type
         self.selections = selections
         self.file_name = file_name
         self.selection_min_width: int = 1
         self.selection_max_width: int = 255
 
-    def from_json(self, data: TextIOWrapper):
+    def from_json(self, data: TextIOWrapper) -> None:
         json_data = json.load(data)
         self.type = RandomizationType.from_id(json_data["type"])
         selections = []

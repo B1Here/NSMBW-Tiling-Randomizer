@@ -8,7 +8,7 @@ class Selection:
         *,
         starts: list[ReggieObject] | None = None,
         ends: list[ReggieObject] | None = None,
-    ):
+    ) -> None:
         self.objects: list[ReggieObject] = objects
         if starts is None:
             starts = []

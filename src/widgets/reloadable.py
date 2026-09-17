@@ -1,9 +1,9 @@
 class GenericWidget:
-    def reload(self):
+    def reload(self) -> None:
         raise NotImplementedError
 
-    def _init_widgets(self):
+    def _init_widgets(self) -> None:
         raise NotImplementedError
 
-    def _create_layout(self):
+    def _create_layout(self) -> None:
         raise NotImplementedError

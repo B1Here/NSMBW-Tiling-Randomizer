@@ -8,7 +8,7 @@ class RandomizationType(Enum):
     INTERTWINED_ROWS = (3, "Intertwined Rows")
 
     @classmethod
-    def from_id(cls, id: int):
+    def from_id(cls, id: int) -> "RandomizationType":
         for type in cls:
             if type.value[0] == id:
                 return type

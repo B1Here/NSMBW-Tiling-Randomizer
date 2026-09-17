@@ -4,6 +4,7 @@ from PyQt6 import QtCore, QtWidgets
 
 from data import globals_
 from reggie.reggie_object import ReggieObject
+from template.selection import Selection
 from widgets.reloadable import GenericWidget
 
 
@@ -13,7 +14,7 @@ class ObjectEditorTab(QtWidgets.QWidget, GenericWidget):
         self,
         type: Literal["filler", "start", "end"],
         parent: QtWidgets.QWidget | None = None,
-    ):
+    ) -> None:
         super().__init__(parent)
         self._init_widgets()
         self._create_layout()
@@ -21,7 +22,7 @@ class ObjectEditorTab(QtWidgets.QWidget, GenericWidget):
         self.index = -1
         self.type = type
 
-    def _init_widgets(self):
+    def _init_widgets(self) -> None:
         # Labels
         self.tileset_slot_label = QtWidgets.QLabel("Tileset Slot", self)
         self.tileset_slot_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignRight)
@@ -71,7 +72,7 @@ class ObjectEditorTab(QtWidgets.QWidget, GenericWidget):
         self.object_height_spin_box.setValue(0)
         self.object_height_spin_box.valueChanged.connect(self._on_object_height_changed)
 
-    def _create_layout(self):
+    def _create_layout(self) -> None:
         layout = QtWidgets.QGridLayout()
         layout.setColumnStretch(3, 1)
         layout.setColumnStretch(5, 1)
@@ -94,7 +95,7 @@ class ObjectEditorTab(QtWidgets.QWidget, GenericWidget):
 
         self.setLayout(layout)
 
-    def reload(self):
+    def reload(self) -> None:
         self.object_list_widget.clear()
         objects = self.get_objects()
         self.index = -1 if objects is None else min(self.index, len(objects) - 1)
@@ -107,13 +108,13 @@ class ObjectEditorTab(QtWidgets.QWidget, GenericWidget):
         self._reload_buttons()
         self.toggle_widgets()
 
-    def _reload_buttons(self):
+    def _reload_buttons(self) -> None:
         objects = self.get_objects()
 
         self.add_object_button.setEnabled(objects is not None)
         self.remove_object_button.setEnabled(objects is not None and len(objects) > 0)
 
-    def _on_object_changed(self, index: int):
+    def _on_object_changed(self, index: int) -> None:
         objects = self.get_objects()
 
         self.index = min(index, -1 if objects is None else len(objects) - 1)
@@ -130,26 +131,26 @@ class ObjectEditorTab(QtWidgets.QWidget, GenericWidget):
         self.object_height_spin_box.setValue(object.height)
         self.tileset_slot_spin_box.setValue(object.tileset_slot)
 
-    def _on_object_id_changed(self, value: int):
+    def _on_object_id_changed(self, value: int) -> None:
         objects = self.get_objects()
         if objects is None:
             return
 
         objects[self.index].object_num = value
 
-    def _on_object_layer_changed(self, index: int):
+    def _on_object_layer_changed(self, index: int) -> None:
         objects = self.get_objects()
         if objects is None:
             return
 
         objects[self.index].layer = index
 
-    def update_index(self):
+    def update_index(self) -> None:
         if self.index == -1 and self.get_objects():
             self.object_list_widget.setCurrentRow(0)
             self.index = 0
 
-    def _on_add_object(self):
+    def _on_add_object(self) -> None:
         objects = self.get_objects()
         if objects is None:
             return
@@ -159,7 +160,7 @@ class ObjectEditorTab(QtWidgets.QWidget, GenericWidget):
         self.update_index()
         self._reload_buttons()
 
-    def _on_remove_object(self):
+    def _on_remove_object(self) -> None:
         objects = self.get_objects()
         if objects is None:
             return
@@ -172,35 +173,35 @@ class ObjectEditorTab(QtWidgets.QWidget, GenericWidget):
         self.object_list_widget.takeItem(index)
         self._reload_buttons()
 
-    def _on_tileset_slot_changed(self, value: int):
+    def _on_tileset_slot_changed(self, value: int) -> None:
         objects = self.get_objects()
         if objects is None:
             return
 
         objects[self.index].tileset_slot = value
 
-    def _on_resizable_changed(self, state: int):
+    def _on_resizable_changed(self, state: int) -> None:
         objects = self.get_objects()
         if objects is None:
             return
 
         objects[self.index].resizable = state == QtCore.Qt.CheckState.Checked.value
 
-    def _on_object_width_changed(self, value: int):
+    def _on_object_width_changed(self, value: int) -> None:
         objects = self.get_objects()
         if objects is None:
             return
 
         objects[self.index].width = value
 
-    def _on_object_height_changed(self, value: int):
+    def _on_object_height_changed(self, value: int) -> None:
         objects = self.get_objects()
         if objects is None:
             return
 
         objects[self.index].height = value
 
-    def get_objects(self):
+    def get_objects(self) -> list[ReggieObject] | None:
         selection = self.get_current_selection()
         if selection is None:
             return None
@@ -210,12 +211,12 @@ class ObjectEditorTab(QtWidgets.QWidget, GenericWidget):
             return selection.ends
         return selection.objects
 
-    def get_current_selection(self):
+    def get_current_selection(self) -> Selection | None:
         if globals_.current_selection_index == -1:
             return None
         return globals_.template.selections[globals_.current_selection_index]
 
-    def toggle_widgets(self):
+    def toggle_widgets(self) -> None:
         disabled = globals_.current_selection_index == -1 or self.index == -1
         self.object_id_spin_box.setDisabled(disabled)
         self.layer_combo_box.setDisabled(disabled)
@@ -226,7 +227,7 @@ class ObjectEditorTab(QtWidgets.QWidget, GenericWidget):
 
 
 class ObjectEditor(QtWidgets.QTabWidget, GenericWidget):
-    def __init__(self, parent: QtWidgets.QWidget | None = None):
+    def __init__(self, parent: QtWidgets.QWidget | None = None) -> None:
         super().__init__(parent)
         self.filler_tab = ObjectEditorTab("filler", self)
         self.starts_tab = ObjectEditorTab("start", self)
@@ -235,7 +236,7 @@ class ObjectEditor(QtWidgets.QTabWidget, GenericWidget):
         self.addTab(self.starts_tab, "Start Objects")
         self.addTab(self.ends_tab, "End Objects")
 
-    def reload(self):
+    def reload(self) -> None:
         self.filler_tab.reload()
         self.starts_tab.reload()
         self.ends_tab.reload()

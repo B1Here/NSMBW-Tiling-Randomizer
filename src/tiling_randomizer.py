@@ -17,7 +17,7 @@ RandomizerSource = Literal["", "tpl", "gen"]
 
 
 class TilingRandomizer(QtWidgets.QMainWindow, GenericWidget):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
         self.setWindowTitle(f"NSMBW Tiling Randomizer v{globals_.version}")
         self.setGeometry(100, 100, 800, 600)
@@ -26,7 +26,7 @@ class TilingRandomizer(QtWidgets.QMainWindow, GenericWidget):
         self._init_widgets()
         self._setup_layout()
 
-    def _create_menu(self):
+    def _create_menu(self) -> None:
         menu = self.menuBar()
         if menu is None:
             return
@@ -98,7 +98,7 @@ class TilingRandomizer(QtWidgets.QMainWindow, GenericWidget):
         *,
         shortcut: QKeySequence | QKeySequence.StandardKey | None = None,
         icon: str | None = None,
-    ):
+    ) -> None:
         action = menu.addAction(text)
         if action is None:
             return
@@ -109,7 +109,7 @@ class TilingRandomizer(QtWidgets.QMainWindow, GenericWidget):
         if shortcut is not None:
             action.setShortcut(shortcut)
 
-    def _init_widgets(self):
+    def _init_widgets(self) -> None:
         self.central_widget = QtWidgets.QWidget()
         self.tab_list = QtWidgets.QTabWidget(self)
 
@@ -120,18 +120,18 @@ class TilingRandomizer(QtWidgets.QMainWindow, GenericWidget):
         self.tab_list.addTab(self.generator_tab_widget, "Generator")
         self.tab_list.addTab(self.template_editor_widget, "Template Editor")
 
-    def _setup_layout(self):
+    def _setup_layout(self) -> None:
         self.setCentralWidget(self.central_widget)
         layout = QtWidgets.QVBoxLayout()
         layout.addWidget(self.tab_list)
 
         self.central_widget.setLayout(layout)
 
-    def _new_action(self):
+    def _new_action(self) -> None:
         globals_.template = TilingTemplate(RandomizationType.RANDOM_ROWS, [])
         self.reload()
 
-    def _load_action(self):
+    def _load_action(self) -> None:
         file_name, _ = QtWidgets.QFileDialog.getOpenFileName(
             self,
             "Load Template",
@@ -145,17 +145,17 @@ class TilingRandomizer(QtWidgets.QMainWindow, GenericWidget):
             globals_.template.file_name = file_name
             self.reload()
 
-    def _save_action_guard(self):
+    def _save_action_guard(self) -> None:
         if globals_.template.file_name is None:
             self._save_as_action()
         else:
             self._save_action()
 
-    def _save_action(self):
+    def _save_action(self) -> None:
         with open(f"{globals_.template.file_name}", "w") as f:
             f.write(json.dumps(globals_.template.json(), indent=2))
 
-    def _save_as_action(self):
+    def _save_as_action(self) -> None:
         file_name, _ = QtWidgets.QFileDialog.getSaveFileName(
             self,
             "Save Template",
@@ -167,14 +167,14 @@ class TilingRandomizer(QtWidgets.QMainWindow, GenericWidget):
             globals_.template.file_name = file_name
             self._save_action()
 
-    def _about_action(self):
+    def _about_action(self) -> None:
         QtWidgets.QMessageBox.about(
             self,
             "About",
             f"NSMBW Tiling Randomizer v{globals_.version}",
         )
 
-    def reload(self, source: RandomizerSource = ""):
+    def reload(self, source: RandomizerSource = "") -> None:
         if source != "tpl":
             self.template_editor_widget.reload()
         if source != "gen":

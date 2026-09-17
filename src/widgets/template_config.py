@@ -5,14 +5,14 @@ from template.randomization_type import RandomizationType
 
 
 class TemplateConfigWidget(QtWidgets.QGroupBox):
-    def __init__(self, parent: QtWidgets.QWidget | None = None):
+    def __init__(self, parent: QtWidgets.QWidget | None = None) -> None:
         super().__init__(parent)
         self.setTitle("Config")
 
         self._init_widgets()
         self._create_layout()
 
-    def _init_widgets(self):
+    def _init_widgets(self) -> None:
         self.type_label = QtWidgets.QLabel("Randomization Type", self)
         self.type_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignRight)
         self.type_combo_box = QtWidgets.QComboBox(self)
@@ -41,8 +41,7 @@ class TemplateConfigWidget(QtWidgets.QGroupBox):
         self.selection_max_width_label.setVisible(False)
         self.selection_max_width_spin_box.setVisible(False)
 
-
-    def _create_layout(self):
+    def _create_layout(self) -> None:
         layout = QtWidgets.QGridLayout(self)
         layout.addWidget(self.type_label, 0, 0)
         layout.addWidget(self.type_combo_box, 0, 1)
@@ -55,7 +54,7 @@ class TemplateConfigWidget(QtWidgets.QGroupBox):
         layout.setColumnStretch(3, 1)
         self.setLayout(layout)
 
-    def reload(self):
+    def reload(self) -> None:
         self.type_combo_box.setCurrentIndex(globals_.template.type.value[0])
         self.selection_min_width_spin_box.setValue(
             globals_.template.selection_min_width
@@ -70,7 +69,7 @@ class TemplateConfigWidget(QtWidgets.QGroupBox):
             globals_.template.selection_min_width
         )
 
-    def _on_type_changed(self, index: int):
+    def _on_type_changed(self, index: int) -> None:
         globals_.template.type = RandomizationType.from_id(index)
         intertwined = globals_.template.type == RandomizationType.INTERTWINED_ROWS
         self.selection_min_width_label.setVisible(intertwined)
@@ -78,10 +77,10 @@ class TemplateConfigWidget(QtWidgets.QGroupBox):
         self.selection_max_width_label.setVisible(intertwined)
         self.selection_max_width_spin_box.setVisible(intertwined)
 
-    def _on_selection_min_width_changed(self, value: int):
+    def _on_selection_min_width_changed(self, value: int) -> None:
         globals_.template.selection_min_width = value
         self.selection_max_width_spin_box.setMinimum(value)
 
-    def _on_selection_max_width_changed(self, value: int):
+    def _on_selection_max_width_changed(self, value: int) -> None:
         globals_.template.selection_max_width = value
         self.selection_min_width_spin_box.setMaximum(value)
