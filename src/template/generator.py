@@ -118,7 +118,7 @@ def generate_random(
         selection.starts.clear()
         selection.ends.clear()
 
-    singles = [object for object in selection.objects if not object.fixed_size]
+    singles = [object for object in selection.objects if object.resizable]
     one_by_one: ReggieObject | None = None
     if singles:
         one_by_one = singles[0]
@@ -229,7 +229,7 @@ def generate_row(
 
     original_width = width
 
-    if len(selection.objects) == 1 and not selection.objects[0].fixed_size:
+    if len(selection.objects) == 1 and selection.objects[0].resizable:
         obj_copy = copy.copy(selection.objects[0])
         obj_copy.width = width
         obj_copy.x = x + offset_by_edge
@@ -394,7 +394,8 @@ def validate(width: int, add_edges: bool) -> str | None:
                 if not selection.ends:
                     return "One or more selections have no ending objects"
 
-    # While heights are allowed to overflow, widths should never exceed the spin box value
+    # While heights are allowed to overflow,
+    # widths should never exceed the spin box value
     for selection in globals_.template.selections:
         if selection.get_min_width() > width:
             return "One or more selections have insufficient object widths"

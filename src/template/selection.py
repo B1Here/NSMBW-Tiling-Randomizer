@@ -10,9 +10,9 @@ class Selection:
         ends: list[ReggieObject] | None = None,
     ):
         self.objects: list[ReggieObject] = objects
-        if starts == None:
+        if starts is None:
             starts = []
-        if ends == None:
+        if ends is None:
             ends = []
         if len(starts) != len(ends):
             raise ValueError("start and end must have the same amount of objects")
@@ -33,12 +33,8 @@ class Selection:
     def from_json(cls, data: dict) -> "Selection":
         return cls(
             objects=[ReggieObject.from_json(obj) for obj in data["objects"]],
-            starts=[ReggieObject.from_json(start) for start in data["starts"]]
-            if data["starts"]
-            else [],
-            ends=[ReggieObject.from_json(end) for end in data["ends"]]
-            if data["ends"]
-            else [],
+            starts=[ReggieObject.from_json(start) for start in data["starts"]],
+            ends=[ReggieObject.from_json(end) for end in data["ends"]],
         )
 
     def json(self) -> dict:

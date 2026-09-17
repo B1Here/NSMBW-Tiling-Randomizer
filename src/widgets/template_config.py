@@ -70,7 +70,7 @@ class TemplateConfigWidget(QtWidgets.QGroupBox):
             globals_.template.selection_min_width
         )
 
-    def _on_type_changed(self, index):
+    def _on_type_changed(self, index: int):
         globals_.template.type = RandomizationType.from_id(index)
         intertwined = globals_.template.type == RandomizationType.INTERTWINED_ROWS
         self.selection_min_width_label.setVisible(intertwined)
@@ -78,10 +78,10 @@ class TemplateConfigWidget(QtWidgets.QGroupBox):
         self.selection_max_width_label.setVisible(intertwined)
         self.selection_max_width_spin_box.setVisible(intertwined)
 
-    def _on_selection_min_width_changed(self, value):
+    def _on_selection_min_width_changed(self, value: int):
         globals_.template.selection_min_width = value
         self.selection_max_width_spin_box.setMinimum(value)
 
-    def _on_selection_max_width_changed(self, value):
+    def _on_selection_max_width_changed(self, value: int):
         globals_.template.selection_max_width = value
         self.selection_min_width_spin_box.setMaximum(value)

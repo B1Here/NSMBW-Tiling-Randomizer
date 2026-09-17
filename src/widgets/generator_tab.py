@@ -70,12 +70,12 @@ class GeneratorTabWidget(QtWidgets.QWidget, GenericWidget):
     def _update_offset_check_box(self):
         self.random_offset_check_box.setDisabled(len(globals_.template.selections) <= 1)
 
-    def _update_offset_spin_box(self, update_range=False):
+    def _update_offset_spin_box(self, update_range: bool | int = False) -> None:
         self.offset_spin_box.setEnabled(
             not self.random_offset_check_box.isChecked()
             and len(globals_.template.selections) > 1
         )
-        if update_range == True:  # Explicit "True" check to prevent truthiness
+        if isinstance(update_range, bool) and update_range:
             self.offset_spin_box.setRange(
                 min(1, len(globals_.template.selections)),
                 len(globals_.template.selections),
@@ -84,7 +84,9 @@ class GeneratorTabWidget(QtWidgets.QWidget, GenericWidget):
     def validate(self):
         if not self.validate_width() or not self.validate_height():
             return False
-        result = generator.validate(self.width_spin_box.value(), self.add_edges_check_box.isChecked())
+        result = generator.validate(
+            self.width_spin_box.value(), self.add_edges_check_box.isChecked()
+        )
         if result is not None:
             self.reggie_clip_text_area.setPlainText(result)
             return False

@@ -75,7 +75,11 @@ class TemplateEditorWidget(QtWidgets.QWidget, GenericWidget):
         if len(globals_.template.selections) <= 0:
             return
 
-        index = self.selection_list.currentRow() if self.selection_list.currentRow() != -1 else len(globals_.template.selections) - 1
+        index = (
+            self.selection_list.currentRow()
+            if self.selection_list.currentRow() != -1
+            else len(globals_.template.selections) - 1
+        )
         globals_.template.selections.pop(index)
         self.selection_list.takeItem(index)
         self.list_updated.emit("tpl")

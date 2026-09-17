@@ -7,7 +7,7 @@ class ReggieObject:
         height: int,
         layer: int,
         *,
-        fixed_size: bool = True,
+        resizable: bool = False,
     ):
         self.tileset_slot = tileset_slot
         self.object_num = object_num
@@ -16,7 +16,7 @@ class ReggieObject:
         self.y: int = 0
         self.width = width
         self.height = height
-        self.fixed_size = fixed_size
+        self.resizable = resizable
 
     def data(self):
         return (
@@ -37,7 +37,7 @@ class ReggieObject:
             data["width"],
             data["height"],
             layer=data["layer"],
-            fixed_size=data["fixed_size"],
+            resizable=data.get("resizable", False),
         )
 
     def json(self) -> dict:
@@ -47,5 +47,5 @@ class ReggieObject:
             "width": self.width,
             "height": self.height,
             "layer": self.layer,
-            "fixed_size": self.fixed_size,
+            "resizable": self.resizable if self.resizable else None,
         }

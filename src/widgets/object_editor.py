@@ -25,8 +25,8 @@ class ObjectEditorTab(QtWidgets.QWidget, GenericWidget):
         # Labels
         self.tileset_slot_label = QtWidgets.QLabel("Tileset Slot", self)
         self.tileset_slot_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignRight)
-        self.fixed_size_label = QtWidgets.QLabel("Fixed Size", self)
-        self.fixed_size_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignRight)
+        self.resizable_label = QtWidgets.QLabel("Resizable", self)
+        self.resizable_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignRight)
         self.object_id_label = QtWidgets.QLabel("Object ID", self)
         self.object_id_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignRight)
         self.layer_label = QtWidgets.QLabel("Layer", self)
@@ -52,8 +52,8 @@ class ObjectEditorTab(QtWidgets.QWidget, GenericWidget):
         self.tileset_slot_spin_box.setRange(0, 3)
         self.tileset_slot_spin_box.setValue(0)
         self.tileset_slot_spin_box.valueChanged.connect(self._on_tileset_slot_changed)
-        self.fixed_size_check_box = QtWidgets.QCheckBox(self)
-        self.fixed_size_check_box.stateChanged.connect(self._on_fixed_size_changed)
+        self.resizable_check_box = QtWidgets.QCheckBox(self)
+        self.resizable_check_box.stateChanged.connect(self._on_resizable_changed)
         self.object_id_spin_box = QtWidgets.QSpinBox(self)
         self.object_id_spin_box.setRange(0, 255)
         self.object_id_spin_box.setValue(0)
@@ -78,8 +78,8 @@ class ObjectEditorTab(QtWidgets.QWidget, GenericWidget):
         layout.setRowStretch(3, 2)
         layout.addWidget(self.tileset_slot_label, 0, 2)
         layout.addWidget(self.tileset_slot_spin_box, 0, 3)
-        layout.addWidget(self.fixed_size_label, 0, 4)
-        layout.addWidget(self.fixed_size_check_box, 0, 5)
+        layout.addWidget(self.resizable_label, 0, 4)
+        layout.addWidget(self.resizable_check_box, 0, 5)
         layout.addWidget(self.object_list_widget, 0, 0, 4, 2)
         layout.addWidget(self.add_object_button, 4, 0)
         layout.addWidget(self.remove_object_button, 4, 1)
@@ -125,7 +125,7 @@ class ObjectEditorTab(QtWidgets.QWidget, GenericWidget):
         object = objects[self.index]
         self.object_id_spin_box.setValue(object.object_num)
         self.layer_combo_box.setCurrentIndex(object.layer)
-        self.fixed_size_check_box.setChecked(object.fixed_size)
+        self.resizable_check_box.setChecked(object.resizable)
         self.object_width_spin_box.setValue(object.width)
         self.object_height_spin_box.setValue(object.height)
         self.tileset_slot_spin_box.setValue(object.tileset_slot)
@@ -184,7 +184,7 @@ class ObjectEditorTab(QtWidgets.QWidget, GenericWidget):
         if objects is None:
             return
 
-        objects[self.index].fixed_size = state == QtCore.Qt.CheckState.Checked
+        objects[self.index].resizable = state == QtCore.Qt.CheckState.Checked.value
 
     def _on_object_width_changed(self, value: int):
         objects = self.get_objects()
@@ -221,7 +221,7 @@ class ObjectEditorTab(QtWidgets.QWidget, GenericWidget):
         self.layer_combo_box.setDisabled(disabled)
         self.object_height_spin_box.setDisabled(disabled)
         self.object_width_spin_box.setDisabled(disabled)
-        self.fixed_size_check_box.setDisabled(disabled)
+        self.resizable_check_box.setDisabled(disabled)
         self.tileset_slot_spin_box.setDisabled(disabled)
 
 

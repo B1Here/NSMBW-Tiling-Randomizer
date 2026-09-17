@@ -19,7 +19,7 @@ RandomizerSource = Literal["", "tpl", "gen"]
 class TilingRandomizer(QtWidgets.QMainWindow, GenericWidget):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("NSMBW Tiling Randomizer")
+        self.setWindowTitle(f"NSMBW Tiling Randomizer v{globals_.version}")
         self.setGeometry(100, 100, 800, 600)
 
         self._create_menu()

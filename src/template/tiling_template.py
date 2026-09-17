@@ -35,6 +35,10 @@ class TilingTemplate:
         return {
             "type": self.type.value[0],
             "selections": [selection.json() for selection in self.selections],
-            "selection_min_width": self.selection_min_width if self.type == RandomizationType.INTERTWINED_ROWS else None,
-            "selection_max_width": self.selection_max_width if self.type == RandomizationType.INTERTWINED_ROWS else None,
+            "selection_min_width": self.selection_min_width
+            if self.type == RandomizationType.INTERTWINED_ROWS
+            else None,
+            "selection_max_width": self.selection_max_width
+            if self.type == RandomizationType.INTERTWINED_ROWS
+            else None,
         }
