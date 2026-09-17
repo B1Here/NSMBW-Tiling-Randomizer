@@ -179,7 +179,7 @@ class ObjectEditorTab(QtWidgets.QWidget, GenericWidget):
 
         objects[self.index].tileset_slot = value
 
-    def _on_fixed_size_changed(self, state: int):
+    def _on_resizable_changed(self, state: int):
         objects = self.get_objects()
         if objects is None:
             return
