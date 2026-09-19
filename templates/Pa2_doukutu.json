@@ -36,112 +36,128 @@
           "object_num": 21,
           "width": 2,
           "height": 2,
-          "layer": 2
+          "layer": 2,
+          "resizable": false
         },
         {
           "tileset_slot": 2,
           "object_num": 22,
           "width": 2,
           "height": 2,
-          "layer": 2
+          "layer": 2,
+          "resizable": false
         },
         {
           "tileset_slot": 2,
           "object_num": 23,
           "width": 2,
           "height": 2,
-          "layer": 2
+          "layer": 2,
+          "resizable": false
         },
         {
           "tileset_slot": 2,
           "object_num": 24,
           "width": 2,
           "height": 2,
-          "layer": 2
+          "layer": 2,
+          "resizable": false
         },
         {
           "tileset_slot": 2,
           "object_num": 25,
           "width": 2,
           "height": 2,
-          "layer": 2
+          "layer": 2,
+          "resizable": false
         },
         {
           "tileset_slot": 2,
           "object_num": 26,
           "width": 2,
           "height": 2,
-          "layer": 2
+          "layer": 2,
+          "resizable": false
         },
         {
           "tileset_slot": 2,
           "object_num": 27,
           "width": 2,
           "height": 2,
-          "layer": 2
+          "layer": 2,
+          "resizable": false
         },
         {
           "tileset_slot": 2,
           "object_num": 28,
           "width": 2,
           "height": 2,
-          "layer": 2
+          "layer": 2,
+          "resizable": false
         },
         {
           "tileset_slot": 2,
           "object_num": 13,
           "width": 4,
           "height": 4,
-          "layer": 2
+          "layer": 2,
+          "resizable": false
         },
         {
           "tileset_slot": 2,
           "object_num": 14,
           "width": 4,
           "height": 4,
-          "layer": 2
+          "layer": 2,
+          "resizable": false
         },
         {
           "tileset_slot": 2,
           "object_num": 15,
           "width": 4,
           "height": 4,
-          "layer": 2
+          "layer": 2,
+          "resizable": false
         },
         {
           "tileset_slot": 2,
           "object_num": 16,
           "width": 4,
           "height": 4,
-          "layer": 2
+          "layer": 2,
+          "resizable": false
         },
         {
           "tileset_slot": 2,
           "object_num": 17,
           "width": 4,
           "height": 4,
-          "layer": 2
+          "layer": 2,
+          "resizable": false
         },
         {
           "tileset_slot": 2,
           "object_num": 18,
           "width": 4,
           "height": 4,
-          "layer": 2
+          "layer": 2,
+          "resizable": false
         },
         {
           "tileset_slot": 2,
           "object_num": 19,
           "width": 4,
           "height": 4,
-          "layer": 2
+          "layer": 2,
+          "resizable": false
         },
         {
           "tileset_slot": 2,
           "object_num": 20,
           "width": 4,
           "height": 4,
-          "layer": 2
+          "layer": 2,
+          "resizable": false
         }
       ]
     }

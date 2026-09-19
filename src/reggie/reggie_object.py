@@ -47,5 +47,5 @@ class ReggieObject:
             "width": self.width,
             "height": self.height,
             "layer": self.layer,
-            "resizable": self.resizable if self.resizable else None,
+            "resizable": self.resizable,
         }

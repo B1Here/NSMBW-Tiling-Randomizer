@@ -32,13 +32,12 @@ class TilingTemplate:
             self.selection_max_width = json_data.get("selection_max_width", 1)
 
     def json(self) -> dict[str, Any]:
-        return {
+        result = {
             "type": self.type.value[0],
             "selections": [selection.json() for selection in self.selections],
-            "selection_min_width": self.selection_min_width
-            if self.type == RandomizationType.INTERTWINED_ROWS
-            else None,
-            "selection_max_width": self.selection_max_width
-            if self.type == RandomizationType.INTERTWINED_ROWS
-            else None,
         }
+        if self.type == RandomizationType.INTERTWINED_ROWS:
+            result["selection_min_width"] = self.selection_min_width
+            result["selection_max_width"] = self.selection_max_width
+
+        return result
