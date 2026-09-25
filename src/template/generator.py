@@ -393,8 +393,21 @@ def validate(width: int, add_edges: bool) -> str | None:
             if add_edges:
                 if not selection.starts:
                     return "One or more selections have no starting objects"
+                first_height = selection.starts[0].height
+                for obj in selection.starts:
+                    if obj.height != first_height:
+                        return "One or more selections have starts of different heights"
                 if not selection.ends:
                     return "One or more selections have no ending objects"
+                first_height = selection.ends[0].height
+                for obj in selection.ends:
+                    if obj.height != first_height:
+                        return "One or more selections have ends of different heights"
+
+            first_height = selection.objects[0].height
+            for obj in selection.objects:
+                if obj.height != first_height:
+                    return "One or more selections have objects of different heights"
 
     # While heights are allowed to overflow,
     # widths should never exceed the spin box value
