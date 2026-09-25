@@ -2,7 +2,7 @@ from enum import Enum
 
 
 class RandomizationType(Enum):
-    RANDOM = (0, "Random (Currently not implemented)")
+    RANDOM = (0, "Random")
     RANDOM_ROWS = (1, "Random Rows")
     ORDERED_ROWS = (2, "Ordered Rows")
     INTERTWINED_ROWS = (3, "Intertwined Rows")
