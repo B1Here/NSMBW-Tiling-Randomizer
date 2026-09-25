@@ -165,8 +165,9 @@ def generate_random(
             obj = copy.copy(selection.objects[index])
             if initial_variance:
                 initial_variance = False
-                height_var = y + obj.height < height and random.random() > 0.75
-                width_var = x + obj.width < width and random.random() > 0.75
+                if one_by_one:
+                    height_var = y + obj.height < height and random.random() > 0.75
+                    width_var = x + obj.width < width and random.random() > 0.75
             attempts += 1
             if x + obj.width > width or y + obj.height > height:
                 continue
@@ -197,8 +198,9 @@ def generate_random(
             if width_var:
                 x -= 1
 
-            height_var = y + obj.height < height and random.random() > 0.75
-            width_var = x + obj.width < width and random.random() > 0.75
+            if one_by_one:
+                height_var = y + obj.height < height and random.random() > 0.75
+                width_var = x + obj.width < width and random.random() > 0.75
         y += 1
     if one_by_one:
         fill_empty(object_list, one_by_one, map)
