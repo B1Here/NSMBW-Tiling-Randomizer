@@ -29,6 +29,11 @@ class Selection:
             return 0
         return min(obj.width for obj in self.objects)
 
+    def get_largest_object_size(self) -> int:
+        if not self.objects:
+            return 0
+        return max(obj.width + obj.height for obj in self.objects)
+
     @classmethod
     def from_json(cls, data: dict) -> "Selection":
         return cls(

@@ -39,10 +39,15 @@ def validate_coverage(obj: ReggieObject, x: int, y: int, map: list[list[bool]]) 
 
 
 def validate_near_presence(
-    objects: list[ReggieObject], obj: ReggieObject, x: int, y: int
+    objects: list[ReggieObject],
+    selection: Selection,
+    index: int,
+    x: int,
+    y: int,
 ) -> bool:
-    if len(objects) == 0:
+    if len(selection.objects) <= selection.get_largest_object_size():
         return False
+    obj = selection.objects[index]
     x_range = range(x - obj.width - 1, x + obj.width * 2 + 1)
     y_range = range(y - obj.height - 1, y + obj.height * 2 + 1)
 
@@ -123,8 +128,6 @@ def generate_random(
     if singles:
         one_by_one = singles[0]
         selection.objects.remove(one_by_one)
-    else:
-        print("[Warning] - No filler found. Empty spaces will not be filled")
 
     map: list[list[bool]] = [[] for _ in range(height)]
     for row in map:
@@ -153,15 +156,17 @@ def generate_random(
         else:
             x = 0
         while x < width:
-            index = -1
-            while index == -1 or index == prev_index:
-                index = random.randint(0, len(selection.objects) - 1)
-
-            if attempts > 10:
+            if attempts > 16:
                 attempts = 0
-                initial_variance = True
+                initial_variance = bool(one_by_one)
                 x += 1
                 continue
+            index = -1
+            while index == -1 or (
+                index == prev_index
+                and len(selection.objects) > selection.get_largest_object_size()
+            ):
+                index = random.randint(0, len(selection.objects) - 1)
             obj = copy.copy(selection.objects[index])
             if initial_variance:
                 initial_variance = False
@@ -178,7 +183,7 @@ def generate_random(
                 width_var = False
             if obj.width + obj.height <= len(
                 selection.objects
-            ) and validate_near_presence(object_list, obj, x, y):
+            ) and validate_near_presence(object_list, selection, index, x, y):
                 continue
 
             if height_var:

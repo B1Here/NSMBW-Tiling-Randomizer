@@ -120,10 +120,10 @@ class GeneratorTabWidget(QtWidgets.QWidget, GenericWidget):
         add_edges = self.add_edges_check_box.isChecked()
         if globals_.template.type == RandomizationType.RANDOM:
             result = generator.generate_random(width, height, add_edges)
-        elif (
-            globals_.template.type == RandomizationType.RANDOM_ROWS
-            or globals_.template.type == RandomizationType.ORDERED_ROWS
-        ):
+        elif globals_.template.type in [
+            RandomizationType.RANDOM_ROWS,
+            RandomizationType.ORDERED_ROWS,
+        ]:
             result = generator.generate_rows(
                 width,
                 height,
